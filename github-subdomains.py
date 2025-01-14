@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import os
 import sys
@@ -104,7 +104,7 @@ else:
         if os.path.isfile(TOKENS_FILE):
             fp = open(TOKENS_FILE,'r')
             for line in fp:
-                r = re.search( '^([a-f0-9]{40}|ghp_[a-zA-Z0-9]{36}|github_pat_[_a-zA-Z0-9]{82})$', line )
+                r = re.search( r'^([a-f0-9]{40}|ghp_[a-zA-Z0-9]{36}|github_pat_[_a-zA-Z0-9]{82})$', line )
                 if r:
                     t_tokens.append( r.group(1) )
 
@@ -154,9 +154,9 @@ _search = _search.replace('-','%2D')
 
 if args.extend:
     # domain_regexp = r'[0-9a-zA-Z_\-\.]+' + _domain.replace('.','\.')
-    domain_regexp = r'([0-9a-z_\-\.]+\.([0-9a-z_\-]+)?'+t_host_parse.domain+'([0-9a-z_\-\.]+)?\.[a-z]{1,5})'
+    domain_regexp = r'([0-9a-z_\-\.]+\.([0-9a-z_\-]+)?'+t_host_parse.domain+r'([0-9a-z_\-\.]+)?\.[a-z]{1,5})'
 else:
-    domain_regexp = r'(([0-9a-z_\-\.]+)\.' + _domain.replace('.','\.')+')'
+    domain_regexp = r'(([0-9a-z_\-\.]+)\.' + _domain.replace('.',r'\.')+')'
 
 if args.verbose:
     print( "Search: %s" % _search )
